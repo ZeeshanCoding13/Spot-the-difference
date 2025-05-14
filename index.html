@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find the Differences: V- vs N-Series Monitors</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f5f5f5;
+            padding: 20px;
+        }
+        .game-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            position: relative;
+        }
+        h1 {
+            color: #2c3e50;
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        .instructions {
+            margin-bottom: 20px;
+        }
+        .game-image {
+            position: relative;
+            margin: 20px auto;
+            max-width: 100%;
+        }
+        .clickable-number {
+            position: absolute;
+            cursor: pointer;
+            font-weight: bold;
+            color: #000;
+            font-size: 18px;
+        }
+        .popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.3);
+            z-index: 100;
+            max-width: 80%;
+            display: none;
+        }
+        .popup-content {
+            margin: 10px 0;
+            font-size: 16px;
+        }
+        .close-btn {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .win-message {
+            display: none;
+            color: #27ae60;
+            font-size: 24px;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+        .reset-btn {
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 20px;
+        }
+        .found {
+            color: #27ae60;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <h1>Find the 3 main differences between the V- and N-series Monitors</h1>
+        <p class="instructions">Click the numbered areas to reveal your answers. Find at least 3 to win!</p>
+        
+        <div class="game-image">
+            <!-- Replace with your actual image -->
+            <img src="quiz_image.png" alt="V- vs N-Series Monitors comparison" style="max-width: 100%;">
+            
+            <!-- These positions need to be adjusted to match where the numbers appear in your image -->
+            <div class="clickable-number" style="top: 25%; left: 10%;" data-number="1">1</div>
+            <div class="clickable-number" style="top: 30%; left: 25%;" data-number="2">2</div>
+            <div class="clickable-number" style="top: 40%; left: 40%;" data-number="3">3</div>
+            <div class="clickable-number" style="top: 55%; left: 55%;" data-number="4">4</div>
+            <div class="clickable-number" style="top: 70%; left: 20%;" data-number="5">5</div>
+            <div class="clickable-number" style="top: 80%; left: 70%;" data-number="6">6</div>
+        </div>
+        
+        <div class="popup" id="popup">
+            <div class="popup-content" id="popup-content"></div>
+            <button class="close-btn" id="close-btn">Click to close and try again</button>
+        </div>
+        
+        <div class="win-message" id="win-message">Well done! You found all 3 main differences!</div>
+        <button class="reset-btn" id="reset-btn">Play Again</button>
+    </div>
+
+    <script>
+        // Game data - responses for each number
+        const responses = {
+            1: {
+                correct: false,
+                message: "❌ NO - The feedback of users on the N-series was already excellent so we did just very few changes on V series."
+            },
+            2: {
+                correct: false,
+                message: "❌ NO - Infusion View was already present in N-Series. No changes."
+            },
+            3: {
+                correct: true,
+                message: "✅ YES - The Ultrasound integration can improve workflow & support clinical decision-making."
+            },
+            4: {
+                correct: false,
+                message: "❌ NO - It was already the transport solution with N-Series."
+            },
+            5: {
+                correct: true,
+                message: "✅ YES - MrVpod is a new cable accessory to simplify early mobilization of the patient."
+            },
+            6: {
+                correct: true,
+                message: "✅ YES - The BIS DSA technology is now accessible with monolateral sensor and integrated in a wider screen to facilitate anaesthesia control."
+            }
+        };
+
+        // Game state
+        let correctAnswersFound = 0;
+        let clickedNumbers = [];
+        const correctNumbers = [3, 5, 6]; // Numbers that are correct answers
+
+        // DOM elements
+        const popup = document.getElementById('popup');
+        const popupContent = document.getElementById('popup-content');
+        const closeBtn = document.getElementById('close-btn');
+        const winMessage = document.getElementById('win-message');
+        const resetBtn = document.getElementById('reset-btn');
+        const clickableNumbers = document.querySelectorAll('.clickable-number');
+
+        // Set up click handlers for numbered areas
+        clickableNumbers.forEach(numberElement => {
+            numberElement.addEventListener('click', function() {
+                const number = parseInt(this.getAttribute('data-number'));
+                
+                // Don't allow clicking the same number twice
+                if (clickedNumbers.includes(number)) {
+                    return;
+                }
+                
+                clickedNumbers.push(number);
+                const response = responses[number];
+                
+                // Show the popup with the appropriate message
+                popupContent.innerHTML = response.message;
+                popup.style.display = 'block';
+                
+                // Mark the number as found
+                if (response.correct) {
+                    this.classList.add('found');
+                    correctAnswersFound++;
+                    
+                    // Check if player has won
+                    if (correctAnswersFound >= 3) {
+                        setTimeout(() => {
+                            winMessage.style.display = 'block';
+                        }, 1000);
+                    }
+                }
+            });
+        });
+
+        // Close popup handler
+        closeBtn.addEventListener('click', function() {
+            popup.style.display = 'none';
+        });
+
+        // Reset game handler
+        resetBtn.addEventListener('click', function() {
+            // Reset game state
+            correctAnswersFound = 0;
+            clickedNumbers = [];
+            
+            // Reset UI
+            winMessage.style.display = 'none';
+            clickableNumbers.forEach(numberElement => {
+                numberElement.classList.remove('found');
+            });
+        });
+    </script>
+</body>
+</html>
