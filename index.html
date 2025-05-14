@@ -31,27 +31,36 @@ html, body {
     margin: 0;
     padding: 0;
 }
-        .images-container {
-            flex: 3;
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-        }
-        .image-box {
-            position: relative;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            overflow: hidden;
-            height: 80vh; /* This should work now */
-            min-height: 80vh; /* Added as fallback */
-            background-color: #f9f9f9;
-            cursor: pointer;
-        }
-        .image-box img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-        }
+.images-container {
+    flex: 3;
+    display: grid;
+    /* Change to 2 columns with 45% width each */
+    grid-template-columns: repeat(2, 45%); /* Two columns at 45% each */
+    gap: 20px;
+    /* Distribute remaining space between columns */
+    justify-content: space-between; /* This will handle the 10% remaining space */
+}
+
+.image-box {
+    position: relative;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    /* Set height relative to viewport or use a fixed value */
+    height: 300px; /* Recommended fixed height instead of vh */
+    /* Remove min-height unless needed */
+    background-color: #f9f9f9;
+    cursor: pointer;
+    /* Ensure width is controlled by grid */
+    width: 100%; /* Takes full width of grid column */
+}
+
+/* Keep the rest of your styles the same */
+.image-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
         .number-circle {
             position: absolute;
             top: 10px;
