@@ -33,12 +33,21 @@
             margin: 20px auto;
             max-width: 100%;
         }
-        .clickable-number {
+        .clickable-area {
             position: absolute;
             cursor: pointer;
-            font-weight: bold;
-            color: #000;
-            font-size: 18px;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            opacity: 0.3;
+        }
+        .clickable-area:hover {
+            opacity: 0.5;
+            background-color: rgba(255, 0, 0, 0.3);
+        }
+        .clickable-area.found {
+            background-color: rgba(46, 204, 113, 0.5);
+            opacity: 0.7;
         }
         .popup {
             position: fixed;
@@ -83,28 +92,25 @@
             font-size: 16px;
             margin-top: 20px;
         }
-        .found {
-            color: #27ae60;
-            text-decoration: underline;
-        }
     </style>
 </head>
 <body>
     <div class="game-container">
         <h1>Find the 3 main differences between the V- and N-series Monitors</h1>
-        <p class="instructions">Click the numbered areas to reveal your answers. Find at least 3 to win!</p>
+        <p class="instructions">Click the red circles to reveal your answers. Find at least 3 to win!</p>
         
         <div class="game-image">
             <!-- Replace with your actual image -->
-            <img src="quiz_image.png" alt="V- vs N-Series Monitors comparison" style="max-width: 100%;">
+            <img src="your-screenshot-image.png" alt="V- vs N-Series Monitors comparison" style="max-width: 100%;">
             
-            <!-- These positions need to be adjusted to match where the numbers appear in your image -->
-            <div class="clickable-number" style="top: 25%; left: 10%;" data-number="1">1</div>
-            <div class="clickable-number" style="top: 30%; left: 25%;" data-number="2">2</div>
-            <div class="clickable-number" style="top: 40%; left: 40%;" data-number="3">3</div>
-            <div class="clickable-number" style="top: 55%; left: 55%;" data-number="4">4</div>
-            <div class="clickable-number" style="top: 70%; left: 20%;" data-number="5">5</div>
-            <div class="clickable-number" style="top: 80%; left: 70%;" data-number="6">6</div>
+            <!-- These are invisible clickable areas over the red circles in your image -->
+            <!-- Adjust the positions (top/left) and sizes (width/height) to match your circles -->
+            <div class="clickable-area" style="top: 25%; left: 10%;" data-number="1"></div>
+            <div class="clickable-area" style="top: 30%; left: 25%;" data-number="2"></div>
+            <div class="clickable-area" style="top: 40%; left: 40%;" data-number="3"></div>
+            <div class="clickable-area" style="top: 55%; left: 55%;" data-number="4"></div>
+            <div class="clickable-area" style="top: 70%; left: 20%;" data-number="5"></div>
+            <div class="clickable-area" style="top: 80%; left: 70%;" data-number="6"></div>
         </div>
         
         <div class="popup" id="popup">
@@ -156,14 +162,14 @@
         const closeBtn = document.getElementById('close-btn');
         const winMessage = document.getElementById('win-message');
         const resetBtn = document.getElementById('reset-btn');
-        const clickableNumbers = document.querySelectorAll('.clickable-number');
+        const clickableAreas = document.querySelectorAll('.clickable-area');
 
-        // Set up click handlers for numbered areas
-        clickableNumbers.forEach(numberElement => {
-            numberElement.addEventListener('click', function() {
+        // Set up click handlers for the red circles
+        clickableAreas.forEach(area => {
+            area.addEventListener('click', function() {
                 const number = parseInt(this.getAttribute('data-number'));
                 
-                // Don't allow clicking the same number twice
+                // Don't allow clicking the same circle twice
                 if (clickedNumbers.includes(number)) {
                     return;
                 }
@@ -175,7 +181,7 @@
                 popupContent.innerHTML = response.message;
                 popup.style.display = 'block';
                 
-                // Mark the number as found
+                // Mark the circle as found if correct
                 if (response.correct) {
                     this.classList.add('found');
                     correctAnswersFound++;
@@ -203,8 +209,8 @@
             
             // Reset UI
             winMessage.style.display = 'none';
-            clickableNumbers.forEach(numberElement => {
-                numberElement.classList.remove('found');
+            clickableAreas.forEach(area => {
+                area.classList.remove('found');
             });
         });
     </script>
