@@ -6,14 +6,24 @@
     <title>Spot the Difference</title>
     <style>
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
         
         @keyframes pulse {
             0% { transform: scale(1); }
             50% { transform: scale(1.05); }
             100% { transform: scale(1); }
+        }
+        
+        @keyframes typewriter {
+            from { width: 0 }
+            to { width: 100% }
+        }
+        
+        @keyframes blinkCursor {
+            from, to { border-color: transparent }
+            50% { border-color: #d32f2f }
         }
         
         body {
@@ -24,8 +34,8 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background-color: #f5f5f5; /* Light grey background */
-            color: #333; /* Dark grey text */
+            background-color: #f5f5f5;
+            color: #333;
             text-align: center;
         }
         
@@ -42,27 +52,52 @@
         h1 {
             font-size: 2.5rem;
             margin-bottom: 20px;
-            color: #d32f2f; /* Mindray red */
-            animation: fadeIn 1s ease-out;
+            color: #d32f2f;
+            overflow: hidden;
+            white-space: nowrap;
+            margin: 0 auto 20px auto;
+            animation: 
+                typewriter 1.5s steps(20) 0.5s 1 normal both,
+                blinkCursor 750ms steps(20) infinite;
+            border-right: 3px solid #d32f2f;
         }
         
         h2 {
             font-size: 1.8rem;
             margin-bottom: 20px;
-            color: #424242; /* Dark grey */
-            animation: fadeIn 1.2s ease-out;
+            color: #424242;
+            overflow: hidden;
+            white-space: nowrap;
+            margin: 0 auto 20px auto;
+            animation: 
+                typewriter 1.2s steps(20) 2s 1 normal both,
+                blinkCursor 750ms steps(20) infinite;
+            border-right: 3px solid #d32f2f;
+            opacity: 0;
+            animation-fill-mode: forwards;
+        }
+        
+        .typewriter-text {
+            display: inline-block;
+            overflow: hidden;
+            white-space: nowrap;
+            border-right: 3px solid #d32f2f;
+            animation: 
+                typewriter 2s steps(40) 3.5s 1 normal both,
+                blinkCursor 750ms steps(40) infinite;
+            opacity: 0;
+            animation-fill-mode: forwards;
         }
         
         p {
             font-size: 1.2rem;
             margin-bottom: 30px;
             line-height: 1.6;
-            color: #616161; /* Medium grey */
-            animation: fadeIn 1.4s ease-out;
+            color: #616161;
         }
         
         .start-btn {
-            background-color: #d32f2f; /* Mindray red */
+            background-color: #d32f2f;
             color: white;
             border: none;
             padding: 15px 40px;
@@ -71,14 +106,14 @@
             cursor: pointer;
             transition: all 0.3s ease;
             box-shadow: 0 5px 15px rgba(211, 47, 47, 0.3);
-            animation: fadeIn 1.6s ease-out, pulse 2s infinite 2s;
+            animation: fadeIn 1s ease-out 5s forwards, pulse 2s infinite 6s;
+            opacity: 0;
         }
         
         .start-btn:hover {
-            background-color: #b71c1c; /* Darker red */
+            background-color: #b71c1c;
             transform: translateY(-3px);
             box-shadow: 0 8px 20px rgba(211, 47, 47, 0.4);
-            animation: pulse 1.5s infinite;
         }
         
         .logo {
@@ -93,13 +128,16 @@
         <!-- <img src="mindray-logo.png" alt="Mindray Logo" class="logo"> -->
         <h1>Spot the Difference</h1>
         <h2>Mindray BeneVision V-Series</h2>
-        <p>Can you find all the differences between the V-Series and previous models?<br>Click Start to begin the challenge!</p>
+        <p>
+            <span class="typewriter-text">Can you find all the differences between the V-Series and previous models?</span>
+            <br>
+            <span class="typewriter-text" style="animation-delay: 5s;">Click Start to begin the challenge!</span>
+        </p>
         <button class="start-btn" id="startBtn">START</button>
     </div>
 
     <script>
         document.getElementById('startBtn').addEventListener('click', function() {
-            // Add click animation before redirect
             this.style.transform = 'scale(0.95)';
             setTimeout(() => {
                 window.location.href = 'game.html';
