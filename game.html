@@ -39,7 +39,6 @@
         
         .container {
             display: flex;
-            flex-direction: column;
             max-width: 95%;
             width: 1200px;
             margin: 0 auto 20px;
@@ -53,17 +52,11 @@
             animation: fadeIn 1.2s ease-out;
         }
         
-        .top-row {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 20px;
-            height: 100px;
-        }
-        
-        .bottom-row {
-            display: flex;
-            justify-content: space-between;
-            height: 50px;
+        .images-container {
+            flex: 3;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
         }
         
         .image-box {
@@ -71,6 +64,7 @@
             border: 2px solid #e0e0e0;
             border-radius: 8px;
             overflow: hidden;
+            height: 250px;
             background-color: white;
             cursor: pointer;
             transition: all 0.3s ease;
@@ -106,33 +100,11 @@
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
         
-        /* Specific image sizes */
-        #image1, #image1a {
-            width: 30%;
-            height: 100px;
-        }
-        
-        #image2 {
-            width: 30%;
-            height: 100px;
-        }
-        
-        #image5, #image4, #image3 {
-            width: 30%;
-            height: 50px;
-        }
-        
-        .legend-container {
-            width: 30%;
-            height: 100px;
-            padding: 10px;
-            border-radius: 6px;
-            background-color: #f9f9f9;
-        }
-        
         .legend {
-            height: 100%;
-            overflow-y: auto;
+            flex: 1;
+            padding-left: 20px;
+            margin-left: 20px;
+            border-left: 1px solid #e0e0e0;
         }
         
         .legend h3 {
@@ -141,12 +113,16 @@
         }
         
         .legend-item {
-            margin-bottom: 5px;
-            padding: 5px;
-            border-radius: 4px;
-            background-color: #f0f0f0;
+            margin-bottom: 15px;
+            padding: 10px;
+            border-radius: 6px;
+            background-color: #f9f9f9;
             color: #616161;
-            font-size: 0.8rem;
+            transition: all 0.3s ease;
+        }
+        
+        .legend-item:hover {
+            background-color: #f0f0f0;
         }
         
         .popup {
@@ -198,15 +174,19 @@
         }
         
         @media (max-width: 768px) {
-            .top-row, .bottom-row {
+            .container {
                 flex-direction: column;
-                height: auto;
             }
-            
-            #image1, #image1a, #image2, #image5, #image4, #image3, .legend-container {
-                width: 100%;
-                height: auto;
-                margin-bottom: 10px;
+            .legend {
+                border-left: none;
+                border-top: 1px solid #e0e0e0;
+                margin-left: 0;
+                margin-top: 20px;
+                padding-left: 0;
+                padding-top: 20px;
+            }
+            .images-container {
+                grid-template-columns: repeat(2, 1fr);
             }
         }
     </style>
@@ -215,60 +195,51 @@
     <h1 class="game-title">Find the 3 main differences between the V- and N-series Monitors</h1>
     
     <div class="container">
-        <!-- Top Row -->
-        <div class="top-row">
-            <!-- Image 1 (Left) -->
-            <div class="image-box" id="image1" data-number="1">
+        <div class="images-container">
+            <!-- Image 1 -->
+            <div class="image-box" data-number="1">
                 <div class="number-circle">1</div>
                 <img src="image1.png" alt="Monitor Feature 1">
             </div>
             
-            <!-- Image 2 (Middle) -->
-            <div class="image-box" id="image2" data-number="2">
+            <!-- Image 2 -->
+            <div class="image-box" data-number="2">
                 <div class="number-circle">2</div>
                 <img src="image2.png" alt="Monitor Feature 2">
             </div>
             
-            <!-- Image 1a (Right) -->
-            <div class="image-box" id="image1a" data-number="1a">
-                <img src="image1a.png" alt="Monitor Feature 1 Comparison">
-            </div>
-        </div>
-        
-        <!-- Legend -->
-        <div class="top-row">
-            <div class="legend-container">
-                <div class="legend">
-                    <h3>Features Legend</h3>
-                    <div class="legend-item">1. User Interface</div>
-                    <div class="legend-item">2. Infusion Pump Integration</div>
-                    <div class="legend-item">3. Ultrasound Integration</div>
-                    <div class="legend-item">4. N1 Transport module</div>
-                    <div class="legend-item">5. MrV-Pod mobile s</div>
-                    <div class="legend-item">6. BIS-DSA integration</div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Bottom Row -->
-        <div class="bottom-row">
-            <!-- Image 5 (Bottom Left) -->
-            <div class="image-box" id="image5" data-number="5">
-                <div class="number-circle">5</div>
-                <img src="image5.png" alt="Monitor Feature 5">
-            </div>
-            
-            <!-- Image 3 (Bottom Center) -->
-            <div class="image-box" id="image3" data-number="3">
+            <!-- Image 3 -->
+            <div class="image-box" data-number="3">
                 <div class="number-circle">3</div>
                 <img src="image3.png" alt="Monitor Feature 3">
             </div>
             
-            <!-- Image 4 (Bottom Right) -->
-            <div class="image-box" id="image4" data-number="4">
+            <!-- Image 4 -->
+            <div class="image-box" data-number="4">
                 <div class="number-circle">4</div>
                 <img src="image4.png" alt="Monitor Feature 4">
             </div>
+            
+            <!-- Image 5 -->
+            <div class="image-box" data-number="5">
+                <div class="number-circle">5</div>
+                <img src="image5.png" alt="Monitor Feature 5">
+            </div>
+            
+            <!-- Image 6 -->
+            <div class="image-box" data-number="6">
+                <div class="number-circle">6</div>
+                <img src="image6.png" alt="Monitor Feature 6">
+            </div>
+        </div>
+        
+        <div class="legend">
+            <div class="legend-item">1. User Interface</div>
+            <div class="legend-item">2. Infusion Pump Integration</div>
+            <div class="legend-item">3. Ultrasound Integration</div>
+            <div class="legend-item">4. N1 Transport module</div>
+            <div class="legend-item">5. MrV-Pod mobile s</div>
+            <div class="legend-item">6. BIS-DSA integration</div>
         </div>
     </div>
     
