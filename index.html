@@ -5,6 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Spot the Difference</title>
     <style>
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -13,35 +24,45 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background: linear-gradient(135deg, #1a2980, #26d0ce);
-            color: white;
+            background-color: #f5f5f5; /* Light grey background */
+            color: #333; /* Dark grey text */
             text-align: center;
         }
+        
         .landing-container {
             max-width: 800px;
             padding: 40px;
-            background-color: rgba(255, 255, 255, 0.1);
+            background-color: white;
             border-radius: 15px;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 0.8s ease-out;
+            border: 1px solid #e0e0e0;
         }
+        
         h1 {
             font-size: 2.5rem;
             margin-bottom: 20px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            color: #d32f2f; /* Mindray red */
+            animation: fadeIn 1s ease-out;
         }
+        
         h2 {
             font-size: 1.8rem;
             margin-bottom: 20px;
-            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+            color: #424242; /* Dark grey */
+            animation: fadeIn 1.2s ease-out;
         }
+        
         p {
             font-size: 1.2rem;
             margin-bottom: 30px;
             line-height: 1.6;
+            color: #616161; /* Medium grey */
+            animation: fadeIn 1.4s ease-out;
         }
+        
         .start-btn {
-            background-color: #ff6b6b;
+            background-color: #d32f2f; /* Mindray red */
             color: white;
             border: none;
             padding: 15px 40px;
@@ -49,16 +70,21 @@
             border-radius: 50px;
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
+            box-shadow: 0 5px 15px rgba(211, 47, 47, 0.3);
+            animation: fadeIn 1.6s ease-out, pulse 2s infinite 2s;
         }
+        
         .start-btn:hover {
-            background-color: #ff5252;
+            background-color: #b71c1c; /* Darker red */
             transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(255, 107, 107, 0.6);
+            box-shadow: 0 8px 20px rgba(211, 47, 47, 0.4);
+            animation: pulse 1.5s infinite;
         }
+        
         .logo {
             width: 150px;
             margin-bottom: 30px;
+            animation: fadeIn 0.8s ease-out;
         }
     </style>
 </head>
@@ -73,7 +99,11 @@
 
     <script>
         document.getElementById('startBtn').addEventListener('click', function() {
-            window.location.href = 'game.html';
+            // Add click animation before redirect
+            this.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+                window.location.href = 'game.html';
+            }, 200);
         });
     </script>
 </body>
