@@ -11,56 +11,45 @@
             padding: 20px;
             background-color: #f5f5f5;
         }
-.container {
-    display: flex;
-    max-width: 95%;
-    margin: 0 auto;
-    background-color: white;
-    padding: 20px;
-    height: 80vh; /* This should work now */
-    min-height: 80vh; /* Added as fallback */
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    /* Ensure flex children can scroll if content overflows */
-    overflow: auto;
-}
-
-/* Add this to ensure all parent elements have proper height */
-html, body {
-    height: 100%;
-    margin: 0;
-    padding: 0;
-}
-.images-container {
-    flex: 3;
-    display: grid;
-    /* Change to 2 columns with 45% width each */
-    grid-template-columns: repeat(3, 30%); /* Two columns at 45% each */
-    gap: 20px;
-    /* Distribute remaining space between columns */
-    justify-content: space-between; /* This will handle the 10% remaining space */
-}
-
-.image-box {
-    position: relative;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    overflow: hidden;
-    /* Set height relative to viewport or use a fixed value */
-    height: 300px; /* Recommended fixed height instead of vh */
-    /* Remove min-height unless needed */
-    background-color: #f9f9f9;
-    cursor: pointer;
-    /* Ensure width is controlled by grid */
-    width: 100%; /* Takes full width of grid column */
-}
-
-/* Keep the rest of your styles the same */
-.image-box img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-}
+        .container {
+            display: flex;
+            max-width: 95%;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            height: 80vh;
+            min-height: 80vh;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            overflow: auto;
+        }
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        .images-container {
+            flex: 3;
+            display: grid;
+            grid-template-columns: repeat(3, 30%);
+            gap: 20px;
+            justify-content: space-between;
+        }
+        .image-box {
+            position: relative;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+            height: 300px;
+            background-color: #f9f9f9;
+            cursor: pointer;
+            width: 100%;
+        }
+        .image-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
         .number-circle {
             position: absolute;
             top: 10px;
@@ -114,32 +103,6 @@ html, body {
             padding: 8px 15px;
             border-radius: 4px;
             cursor: pointer;
-        }
-        .win-message {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: white;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 0 20px rgba(0,0,0,0.3);
-            z-index: 101;
-            text-align: center;
-        }
-        .win-message h2 {
-            color: #27ae60;
-            margin-top: 0;
-        }
-        .reset-btn {
-            background-color: #e74c3c;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 4px;
-            cursor: pointer;
-            margin-top: 20px;
         }
         .found {
             border: 3px solid #2ecc71;
@@ -205,39 +168,33 @@ html, body {
         <div class="popup-content" id="popup-content"></div>
         <button class="close-btn" id="close-btn">Click to close and try again</button>
     </div>
-    
-    <!-- Win Message -->
-    <div class="win-message" id="win-message">
-        <h2>Well done! You found all 3 main differences!</h2>
-        <button class="reset-btn" id="reset-btn">Play Again</button>
-    </div>
 
     <script>
         // Game data - responses for each number
         const responses = {
             1: {
                 correct: false,
-                message: "❌ NO - The feedback of users on the N-series was already excellent so we did just very few changes on V series."
+                message: "❌ NO – The feedback of users on the N-Series was already excellent, so we just improved screen visibility and included drag & drop screen customisation of curves and quick keys to make it more intuitive."
             },
             2: {
                 correct: false,
-                message: "❌ NO - Infusion View was already present in N-Series. No changes."
+                message: "❌ NO – Infusion View with real-time infusion pump status and trends was already present in the N-Series to support decision making. No changes."
             },
             3: {
                 correct: true,
-                message: "✅ YES - The Ultrasound integration can improve workflow & support clinical decision-making."
+                message: "✅ YES – The combined visualisation and integration of real-time ultrasound and vital signs parameters can improve workflow and support clinical decision-making."
             },
             4: {
                 correct: false,
-                message: "❌ NO - It was already the transport solution with N-Series."
+                message: "❌ NO – The N1 multiparameter transport module was already available with the N-Series to ensure continuous monitoring during transfers and automatic data continuity and settings synchronisation."
             },
             5: {
                 correct: true,
-                message: "✅ YES - MrVpod is a new cable accessory to simplify early mobilization of the patient."
+                message: "✅ YES – MrVpod, a cable-light mobile solution, enhances patient comfort and facilitates early mobilisation to help accelerate patient recovery and outcomes."
             },
             6: {
                 correct: true,
-                message: "✅ YES - The BIS DSA technology is now accessible with monolateral sensor and integrated in a wider screen to facilitate anaesthesia control."
+                message: "✅ YES – The BIS DSA technology is now accessible with a unilateral sensor and integrated in a wider screen to enhance anaesthesia control and drug delivery."
             }
         };
 
@@ -250,8 +207,6 @@ html, body {
         const popup = document.getElementById('popup');
         const popupContent = document.getElementById('popup-content');
         const closeBtn = document.getElementById('close-btn');
-        const winMessage = document.getElementById('win-message');
-        const resetBtn = document.getElementById('reset-btn');
         const imageBoxes = document.querySelectorAll('.image-box');
 
         // Set up click handlers for images
@@ -279,7 +234,7 @@ html, body {
                     // Check if player has won
                     if (correctAnswersFound >= 3) {
                         setTimeout(() => {
-                            winMessage.style.display = 'block';
+                            window.location.href = 'success.html';
                         }, 1000);
                     }
                 }
@@ -289,20 +244,6 @@ html, body {
         // Close popup handler
         closeBtn.addEventListener('click', function() {
             popup.style.display = 'none';
-        });
-
-        // Reset game handler
-        resetBtn.addEventListener('click', function() {
-            // Reset game state
-            correctAnswersFound = 0;
-            clickedNumbers = [];
-            
-            // Reset UI
-            winMessage.style.display = 'none';
-            popup.style.display = 'none';
-            imageBoxes.forEach(box => {
-                box.classList.remove('found');
-            });
         });
     </script>
 </body>
