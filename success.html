@@ -28,6 +28,19 @@
             color: #333; /* Dark grey text */
             text-align: center;
         }
+                body::before {
+            content: "";
+            background-image: url('monitors.png');
+            background-size: cover;
+            background-position: center;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            /* opacity: 0.05; */
+            z-index: -1;
+        }
         
         .success-container {
             max-width: 800px;
@@ -107,7 +120,7 @@
         <h1>Well done!</h1>
         <div class="success-message">You spotted 3 or more real differences.</div>
         <div class="description">
-            With comprehensive visibility and control of patient data, smart integration of multiple device data, and simplified cable management, the new BeneVision V-Series supports clinicians in their workflows and decision-making to safeguard patient care across all acute care settings.
+            With comprehensive visibility and control of patient data, smart integration of multiple device data and simplified cable management, the new BeneVision V-Series supports clinicians in their workflows and decision-making to safeguard patient care across all acute care settings.
         </div>
         <button class="play-again-btn" onclick="window.location.href='index.html'">Play Again</button>
         <div class="goodbye">Thank you, Good Bye</div>
