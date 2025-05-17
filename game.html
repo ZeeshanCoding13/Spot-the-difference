@@ -84,9 +84,9 @@
         } */
 
         .legend-item {
-            margin-bottom: 5px;
-            margin-top: 20px;
-            padding: 5px 5px 5px 70px; /* Increased left padding */
+            /* margin-bottom: 5px;
+            margin-top: 20px; */
+            padding: 5px 5px 10px 70px; /* Increased left padding */
             color: #000000;
             font-size: 18px;
             position: relative;
@@ -154,17 +154,21 @@
 </head>
 
 <body>
-    <h1 class="game-title">Find the 3 main differences between the V- and N-series Monitors</h1>
-<h3 style=" width: fit-content; margin-left: 1100px; margin-right: 200px; font-weight: 400;
-font-size: 24px;">
-  Click the boxes to reveal your answers. Find at least 3 to win!
-</h3>
+<div style="display: flex; align-items: center; gap: 50px;">
+  <a href="index.html" style="font-size: 32px; text-decoration: none; cursor: pointer;">
+    ⬅️
+  </a>
+  <h1 class="game-title" style="font-size: 40px; margin: 0;">
+    Find the 3 main differences between the V- and N-series Monitors
+  </h1>
+</div>
+
 
 
 
     <div class="main-content">
         <!-- Top Row -->
-        <div class="Row main-row" style="display: flex; gap: 0px;">
+        <div class="Row main-row" style="display: flex; gap: 0px; margin-top: 30px;">
             <div class="column" style="width: 100%;">
                 <div class="top-row" style="display: flex; gap: 0px;">
 
@@ -181,7 +185,7 @@ font-size: 24px;">
                     </div>
 
                     <!-- Container 2: Two stacked images -->
-                    <div class="column middle-column" style="display: flex; flex-direction: column; gap: 0px;">
+                    <div class="column middle-column" style="display: flex; flex-direction: column; gap: 30px;">
                         <div class="image-box" id="image2">
                             <div class="number-circle" style="top: 5px; left: 100px;" data-number="2">2</div>
                             <img src="image2.png" style="height: 250px; width: 200px;" alt="Monitor Feature 2">
@@ -205,6 +209,10 @@ font-size: 24px;">
 
                     <!-- Container 4: Legend and image3 -->
                     <div class="column middle-column" style="display: flex; flex-direction: column; gap: 10px;">
+                        <h3 style=" width: 350px; margin-left: 0px; margin-right: 0px; font-weight: 400;
+                                font-size: 24px;">
+                                Click the boxes to reveal your answers. Find at least 3 to win!
+                                </h3>
                         <div class="legend-container" style="width: 100%; ">
                             <div class="legend-item">
                                 <div class="legend-circle" data-number="1">1</div>
@@ -232,7 +240,7 @@ font-size: 24px;">
                             </div>
                         </div>
                         <div class="image-box" id="image3">
-                            <div class="number-circle" style="top: 50px; left: 100px;" data-number="3">3</div>
+                            <div class="number-circle" style="top: 50px; left: 110px;" data-number="3">3</div>
                             <img src="image3.png" style="height: 200px; width: 500px;" alt="Monitor Feature 3">
                         </div>
                     </div>
